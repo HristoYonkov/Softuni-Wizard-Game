@@ -1,8 +1,7 @@
-const startScreen = document.querySelector('.start-screen')
-const gameScreen = document.querySelector('.game-screen')
+let state = initState();
+let game = initGameObjects();
 
 startScreen.addEventListener('click', (e) => {
-    console.log(startScreen, gameScreen);
-    startScreen.classList.add('hidden')
-    gameScreen.classList.remove('hidden')
+    game.startScreen.classList.add('hidden')
+    game.gameScreen.classList.remove('hidden')
 })
