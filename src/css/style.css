@@ -26,3 +26,9 @@ body {
     padding: 30px;
     cursor: pointer;
 }
+
+.game-score {
+    background-color: black;
+    color: white;
+    text-align: center;
+}
