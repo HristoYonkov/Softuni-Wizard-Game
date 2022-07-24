@@ -13,3 +13,16 @@ body {
     height: 93vh;
     margin: 0;
 }
+
+.game-start {
+    position: absolute;
+    width: 30%;
+    background-color: rgb(235, 253, 153);
+    border-radius: 30px;
+    top: 100px;
+    left: 35%;
+    z-index: 1;
+    text-align: center;
+    padding: 30px;
+    cursor: pointer;
+}
