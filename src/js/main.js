@@ -18,3 +18,19 @@ function onGameStart() {
 }
 
 //global key listeners
+document.addEventListener('keydown', onKeyDown);
+document.addEventListener('keyup', onKeyUp);
+
+let keys = {};
+
+function onKeyDown(e) {
+    keys[e.code] = true
+    console.log(keys);
+
+}
+
+function onKeyUp(e) {
+    keys[e.code] = false
+    console.log(keys);
+
+}
