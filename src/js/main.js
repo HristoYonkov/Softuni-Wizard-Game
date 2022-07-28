@@ -34,3 +34,8 @@ function onKeyUp(e) {
     console.log(keys);
 
 }
+
+function gameAction() {
+    console.log('action');
+    window.requestAnimationFrame(gameAction)
+}
