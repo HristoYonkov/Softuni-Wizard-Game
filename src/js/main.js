@@ -39,11 +39,18 @@ let game = {
 // Game loop function
 function gameAction() {
     const wizard = document.querySelector('.wizard');
+
+    // Apply gravitation
+    let isInAir = (player.height + player.y) <= gameArea.offsetHeight;
+    if (isInAir) {
+        player.y += game.speed
+    }
+
     // Register user input
     if (keys.ArrowUp && player.y > 0) {
         player.y -= game.speed * game.speedMult;
     }
-    if (keys.ArrowDown && player.y + player.height < gameArea.offsetHeight) {
+    if (keys.ArrowDown && isInAir) {
         player.y += game.speed * game.speedMult;
     }
     if (keys.ArrowLeft && player.x > 0) {
