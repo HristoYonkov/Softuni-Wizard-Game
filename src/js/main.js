@@ -14,6 +14,9 @@ function onGameStart() {
     wizard.style.top = player.y + 'px';
     wizard.style.left = player.x + 'px';
     gameArea.appendChild(wizard);
+
+    player.width = wizard.offsetWidth;
+    player.height = wizard.offsetHeight;
     
     //game infinite loop
     window.requestAnimationFrame(gameAction)
@@ -23,28 +26,31 @@ let keys = {};
 
 let player = {
     x: 150,
-    y: 100
+    y: 100,
+    width: 0,
+    height: 0
 };
 
 let game = {
-    speed: 2
+    speed: 2,
+    speedMult: 4
 };
 
 // Game loop function
 function gameAction() {
     const wizard = document.querySelector('.wizard');
     // Register user input
-    if (keys.ArrowUp) {
-        player.y -= game.speed;
+    if (keys.ArrowUp && player.y > 0) {
+        player.y -= game.speed * game.speedMult;
     }
-    if (keys.ArrowDown) {
-        player.y += game.speed;
+    if (keys.ArrowDown && player.y + player.height < gameArea.offsetHeight) {
+        player.y += game.speed * game.speedMult;
     }
-    if (keys.ArrowLeft) {
-        player.x -= game.speed;
+    if (keys.ArrowLeft && player.x > 0) {
+        player.x -= game.speed * game.speedMult;
     }
-    if (keys.ArrowRight) {
-        player.x += game.speed;
+    if (keys.ArrowRight && player.x + player.width < gameArea.offsetWidth) {
+        player.x += game.speed * game.speedMult;
     }
 
     wizard.style.top = player.y + 'px';
