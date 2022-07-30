@@ -37,7 +37,7 @@ let game = {
     speed: 2,
     speedMult: 4,
     fireballMultiplier: 5,
-    fireInterval: 1000
+    fireInterval: 500
 };
 
 let scene = {
@@ -82,10 +82,12 @@ function gameAction(timestamp) {
         player.x += game.speed * game.speedMult;
     }
 
-    if (keys.Space && timestamp - player.lastTimeFiredFireball > game.fireInterval) {
+    if (keys.Space) {
         wizard.classList.add('wizard-fire');
-        addFireBall(player);
-        player.lastTimeFiredFireball = timestamp;
+        if (timestamp - player.lastTimeFiredFireball > game.fireInterval) {
+            addFireBall(player);
+            player.lastTimeFiredFireball = timestamp;
+        }
 
     } else {
         wizard.classList.remove('wizard-fire')
