@@ -29,20 +29,35 @@ let player = {
     x: 150,
     y: 100,
     width: 0,
-    height: 0
+    height: 0,
+    lastTimeFiredFireball: 0
 };
 
 let game = {
     speed: 2,
-    speedMult: 4
+    speedMult: 4,
+    fireballMultiplier: 5,
+    fireInterval: 1000
 };
+
 let scene = {
     score: 0
 }
 
 // Game loop function
-function gameAction() {
+function gameAction(timestamp) {
     const wizard = document.querySelector('.wizard');
+    
+    // Modify fireballs positions
+    let fireballs = document.querySelectorAll('.fire-ball');
+    fireballs.forEach(fireball => {
+        fireball.x += game.speed * game.fireballMultiplier;
+        fireball.style.left = fireball.x + game.speed + 'px';
+        
+        if (fireball.x + fireball.offsetWidth > gameArea.offsetWidth) {
+            fireball.parentElement.removeChild(fireball);
+        }
+    });
     
     //Increment score count
     scene.score++;
@@ -67,12 +82,22 @@ function gameAction() {
         player.x += game.speed * game.speedMult;
     }
 
+    if (keys.Space && timestamp - player.lastTimeFiredFireball > game.fireInterval) {
+        wizard.classList.add('wizard-fire');
+        addFireBall(player);
+        player.lastTimeFiredFireball = timestamp;
+
+    } else {
+        wizard.classList.remove('wizard-fire')
+    }
+
+    // Apply movement
     wizard.style.top = player.y + 'px';
     wizard.style.left = player.x + 'px';
 
     // Apply score
     gamePoints.textContent = scene.score;
-
+    
     window.requestAnimationFrame(gameAction)
 }
 
@@ -87,4 +112,14 @@ function onKeyDown(e) {
 
 function onKeyUp(e) {
     keys[e.code] = false;
+}
+
+function addFireBall(player) {
+    let fireball = document.createElement('div');
+    fireball.classList.add('fire-ball');
+    fireball.style.top = (player.y + player.height / 3 - 5) + 'px';
+    fireball.x = player.x + player.width;
+    fireball.style.left = fireball.x + 'px';
+
+    gameArea.appendChild(fireball);
 }
