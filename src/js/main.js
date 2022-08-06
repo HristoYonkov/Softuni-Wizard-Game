@@ -37,11 +37,13 @@ let game = {
     speed: 2,
     speedMult: 4,
     fireballMultiplier: 5,
-    fireInterval: 500
+    fireInterval: 500,
+    cloudSpawnInterval: 3000
 };
 
 let scene = {
-    score: 0
+    score: 0,
+    lastCloudSpawn: 0
 }
 
 // Game loop function
@@ -61,6 +63,29 @@ function gameAction(timestamp) {
     
     //Increment score count
     scene.score++;
+
+    // Add Clouds
+    if (timestamp - scene.lastCloudSpawn > game.cloudSpawnInterval + 20000 * Math.random()) {
+        
+        let cloud = document.createElement('div');
+        cloud.classList.add('cloud');
+        cloud.x = gameArea.offsetWidth - 200;
+        cloud.style.left = cloud.x + 'px';
+        cloud.style.top = (gameArea.offsetHeight - 200) * Math.random() + 'px';
+        gameArea.appendChild(cloud);
+        scene.lastCloudSpawn = timestamp;
+    }
+
+    // Modify cloud position
+    let clouds = document.querySelectorAll('.cloud');
+    clouds.forEach(cloud => {
+        cloud.x -= game.speed;
+        cloud.style.left = cloud.x + 'px';
+
+        if (cloud.x + gameArea.offsetWidth <= 0) {
+            cloud.parentElement.removeChild(cloud);
+        }
+    })
 
     // Apply gravitation
     let isInAir = (player.height + player.y) <= gameArea.offsetHeight;

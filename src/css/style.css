@@ -46,6 +46,15 @@ body {
     background-size: cover;
 }
 
+.cloud {
+    z-index: 0;
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background-image: url(../images/cloud.png);
+    background-size: cover;
+}
+
 .wizard-fire {
     background-image: url(../images/wizard-fire.png);
     background-size: cover;
